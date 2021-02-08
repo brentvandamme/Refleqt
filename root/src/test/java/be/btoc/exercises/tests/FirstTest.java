@@ -1,14 +1,12 @@
 package be.btoc.exercises.tests;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -34,7 +32,30 @@ public class FirstTest {
         List<WebElement> products = driver.findElements(By.cssSelector(".left-block"));
         products.get(1).click();
 
+        Assert.assertTrue(checkIfDressIsShown(driver));
+
         driver.close();
         driver.quit();
+    }
+
+    @Test
+    public void addSomethingToCart(){
+        System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\Java\\Webdrivers\\chromedriver.exe");
+        this.driver = new ChromeDriver();
+        this.waiter = new WebDriverWait(this.driver, 5);
+        this.driver.get("http://automationpractice.com/index.php");
+
+       WebElement target = driver.findElement(By.cssSelector("#homefeatured li:nth-child(1)"));
+       Actions action = new Actions(driver);
+       action.moveToElement(target).perform();
+
+
+        driver.close();
+        driver.quit();
+    }
+
+    public boolean checkIfDressIsShown(WebDriver driver){
+        String txt = driver.findElement(By.cssSelector(".pb-center-column h1")).getText();
+        return txt.equals("Printed Dress");
     }
 }
