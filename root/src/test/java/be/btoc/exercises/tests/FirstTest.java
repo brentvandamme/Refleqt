@@ -39,30 +39,33 @@ public class FirstTest {
     }
 
     @Test
-    public void addSomethingToCart(){
+    public void addSomethingToCart() {
         System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\Java\\Webdrivers\\chromedriver.exe");
         this.driver = new ChromeDriver();
         this.waiter = new WebDriverWait(this.driver, 5);
         this.driver.get("http://automationpractice.com/index.php");
 
-       WebElement target = driver.findElement(By.cssSelector("#homefeatured li:nth-child(1)"));
-       Actions action = new Actions(driver);
-       action.moveToElement(target).perform();
-       driver.findElement(By.cssSelector("#homefeatured li:nth-child(1) .button")).click();
-       waiter.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(".layer_cart_product h2")));
+        WebElement target = driver.findElement(By.cssSelector("#homefeatured li:nth-child(1)"));
+        Actions action = new Actions(driver);
+        action.moveToElement(target).perform();
+        driver.findElement(By.cssSelector("#homefeatured li:nth-child(1) .button")).click();
 
-       Assert.assertTrue(productIsAddedToCart(driver));
+        WebElement checkoutButton = driver.findElement(By.cssSelector("[title='Proceed to checkout']"));
+        waiter.until(ExpectedConditions.visibilityOf(checkoutButton));
+        checkoutButton.click();
+
+        Assert.assertTrue(productIsAddedToCart(driver));
 
         driver.close();
         driver.quit();
     }
 
-    public boolean checkIfDressIsShown(WebDriver driver){
+    public boolean checkIfDressIsShown(WebDriver driver) {
         String txt = driver.findElement(By.cssSelector(".pb-center-column h1")).getText();
         return txt.equals("Printed Dress");
     }
 
-    public boolean productIsAddedToCart(WebDriver driver){
+    public boolean productIsAddedToCart(WebDriver driver) {
         String txt = driver.findElement(By.cssSelector(".layer_cart_product h2")).getText();
         System.out.println(txt);
         return txt.equals("Product successfully added to your shopping cart");
