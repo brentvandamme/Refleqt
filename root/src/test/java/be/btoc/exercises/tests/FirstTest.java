@@ -48,7 +48,10 @@ public class FirstTest {
        WebElement target = driver.findElement(By.cssSelector("#homefeatured li:nth-child(1)"));
        Actions action = new Actions(driver);
        action.moveToElement(target).perform();
+       driver.findElement(By.cssSelector("#homefeatured li:nth-child(1) .button")).click();
+       waiter.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(".layer_cart_product h2")));
 
+       Assert.assertTrue(productIsAddedToCart(driver));
 
         driver.close();
         driver.quit();
@@ -57,5 +60,11 @@ public class FirstTest {
     public boolean checkIfDressIsShown(WebDriver driver){
         String txt = driver.findElement(By.cssSelector(".pb-center-column h1")).getText();
         return txt.equals("Printed Dress");
+    }
+
+    public boolean productIsAddedToCart(WebDriver driver){
+        String txt = driver.findElement(By.cssSelector(".layer_cart_product h2")).getText();
+        System.out.println(txt);
+        return txt.equals("Product successfully added to your shopping cart");
     }
 }
