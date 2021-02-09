@@ -32,7 +32,7 @@ public class FirstTest {
     @Test
     public void addSomethingToCartFrontPage() {
        new FrontPage()
-            .hoverOverProductItem("#homefeatured li:nth-child(1)", "#homefeatured li:nth-child(1) .button")
+            .hoverOverProductItem(1)
             .proceedToCheckoutPage()
             .productIsAddedToCart();
     }
@@ -41,7 +41,7 @@ public class FirstTest {
     public void addSomethingToCartResultPage() {
         new FrontPage()
             .searchDress()
-            .hoverOverProductItem(".product_list li:nth-child(6)", ".product_list li:nth-child(6) .button")
+            .hoverOverProductItem(6)
             .proceedToCheckoutPage()
             .productIsAddedToCart();
     }
