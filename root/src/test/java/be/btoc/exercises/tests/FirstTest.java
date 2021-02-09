@@ -17,6 +17,8 @@ public class FirstTest {
     WebDriver driver;
     WebDriverWait waiter;
 
+    // Hello there Brenttt ;-)
+
     @Test
     public void goToWebsite() {
         System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\Java\\Webdrivers\\chromedriver.exe");
