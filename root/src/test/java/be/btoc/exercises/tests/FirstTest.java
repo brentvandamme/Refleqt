@@ -17,8 +17,6 @@ public class FirstTest {
     WebDriver driver;
     WebDriverWait waiter;
 
-    // Hello there Brenttt ;-)
-
     @Test
     public void goToWebsite() {
         System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\Java\\Webdrivers\\chromedriver.exe");
@@ -41,7 +39,7 @@ public class FirstTest {
     }
 
     @Test
-    public void addSomethingToCart() {
+    public void addSomethingToCartFrontPage() {
         System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\Java\\Webdrivers\\chromedriver.exe");
         this.driver = new ChromeDriver();
         this.waiter = new WebDriverWait(this.driver, 5);
@@ -62,14 +60,41 @@ public class FirstTest {
         driver.quit();
     }
 
+    @Test
+    public void addSomethingToCartResultPage() {
+        System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\Java\\Webdrivers\\chromedriver.exe");
+        this.driver = new ChromeDriver();
+        this.waiter = new WebDriverWait(this.driver, 5);
+        this.driver.get("http://automationpractice.com/index.php");
+
+        driver.findElement(By.cssSelector("#search_query_top"));
+        driver.findElement((By.cssSelector("#homefeatured:first-child")));
+
+        driver.findElement(By.cssSelector("#search_query_top")).sendKeys("dress" + Keys.ENTER);
+
+        WebElement target = driver.findElement(By.cssSelector(".product_list li:nth-child(6)"));
+        Actions action = new Actions(driver);
+        action.moveToElement(target).perform();
+        driver.findElement(By.cssSelector(".product_list li:nth-child(6) .button")).click();
+
+        WebElement checkoutButton = driver.findElement(By.cssSelector("[title='Proceed to checkout']"));
+        waiter.until(ExpectedConditions.visibilityOf(checkoutButton));
+        checkoutButton.click();
+
+        Assert.assertTrue(productIsAddedToCart(driver));
+
+        driver.close();
+        driver.quit();
+    }
+
     public boolean checkIfDressIsShown(WebDriver driver) {
         String txt = driver.findElement(By.cssSelector(".pb-center-column h1")).getText();
         return txt.equals("Printed Dress");
     }
 
     public boolean productIsAddedToCart(WebDriver driver) {
-        String txt = driver.findElement(By.cssSelector(".layer_cart_product h2")).getText();
+        String txt = driver.findElement(By.cssSelector(".cart_description .product-name")).getText();
         System.out.println(txt);
-        return txt.equals("Product successfully added to your shopping cart");
+        return txt.equals("Faded Short Sleeve T-shirts");
     }
 }
