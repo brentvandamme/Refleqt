@@ -1,22 +1,16 @@
 package be.btoc.exercises.pages;
 
+import be.btoc.exercises.support.DriverProvider;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
-public class DetailPage {
+public class DetailPage extends AbstractPage{
 
-    WebDriver driver;
-    WebDriverWait waiter;
-
-    public DetailPage(WebDriver driver, WebDriverWait waiter) {
-        this.driver = driver;
-        this.waiter = waiter;
-    }
-
-    public boolean checkIfDressIsShown(WebDriver driver) {
+    public void checkIfDressIsShown() {
         String txt = driver.findElement(By.cssSelector(".pb-center-column h1")).getText();
-        return txt.equals("Printed Dress");
+        Assert.assertTrue(txt.equals("Printed Dress"));
     }
 
 }
