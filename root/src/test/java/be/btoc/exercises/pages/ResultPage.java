@@ -18,7 +18,7 @@ public class ResultPage extends ProductPage{
     List <WebElement> imageCardPicture;
 
     public DetailPage clickOnProductFoto(){
-        waiter.until(ExpectedConditions.visibilityOfAllElements(imageCardPicture));
+        AbstractPage.waitForElements(imageCardPicture);
         imageCardPicture.get(1).click();
         return new DetailPage();
     }

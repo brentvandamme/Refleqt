@@ -11,14 +11,14 @@ import org.testng.Assert;
 
 public class DetailPage extends AbstractPage{
 
-    String productTxt = "Printed Dress";
+    // String productTxt = "Printed Dress";
 
     @FindBy(css =".pb-center-column h1" )
     WebElement productName;
 
-    public void checkIfDressIsShown() {
+    public void checkIfDressIsShown(String productText) {
         String txt = productName.getText();
-        Assert.assertTrue(txt.equals(productTxt));
+        Assert.assertTrue(txt.equals(productText));
     }
 
 }

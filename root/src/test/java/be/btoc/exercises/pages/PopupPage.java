@@ -1,13 +1,7 @@
 package be.btoc.exercises.pages;
 
-import be.btoc.exercises.support.DriverProvider;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PopupPage extends AbstractPage{
 
@@ -15,7 +9,7 @@ public class PopupPage extends AbstractPage{
     WebElement checkoutBtn;
 
     public CheckoutPage proceedToCheckoutPage() {
-        waiter.until(ExpectedConditions.visibilityOf(checkoutBtn));
+        AbstractPage.waitForElement(checkoutBtn);
         checkoutBtn.click();
         return new CheckoutPage();
     }

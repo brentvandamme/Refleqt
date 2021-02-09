@@ -11,14 +11,12 @@ import org.testng.Assert;
 
 public class CheckoutPage extends AbstractPage{
 
-    String productTxt = "Blouse";
-
     @FindBy(css =".cart_description .product-name" )
     WebElement productName;
 
-    public void productIsAddedToCart() {
+    public void productIsAddedToCart(String productText) {
         String txt = productName.getText();
         System.out.println(txt);
-        Assert.assertTrue(txt.equals(productTxt));
+        Assert.assertTrue(txt.equals(productText));
     }
 }

@@ -15,8 +15,8 @@ public class FrontPage extends ProductPage {
     @FindBy(css ="#search_query_top" )
     WebElement searchbar;
 
-    public ResultPage searchDress() {
-        searchbar.sendKeys("dress" + Keys.ENTER);
+    public ResultPage searchDress(String kledij) {
+        searchbar.sendKeys(kledij + Keys.ENTER);
         return new ResultPage();
     }
 }
