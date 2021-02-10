@@ -6,7 +6,7 @@ import io.cucumber.testng.CucumberOptions;
 @CucumberOptions(
         features = {"src/test/resources/features/"},
         glue = "be.btoc.exercises.steps",
-        plugin = {"de.monochromata.cucumber.report.PrettyReports:target/cucumber", "cucumber.api.event.EventListener"}
+        plugin = {"de.monochromata.cucumber.report.PrettyReports:target/cucumber"}
 )
 public class CucumberExecutor extends AbstractTestNGCucumberTests {
 

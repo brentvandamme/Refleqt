@@ -2,6 +2,7 @@ package be.btoc.exercises.steps;
 
 import be.btoc.exercises.pages.*;
 import be.btoc.exercises.support.DriverProvider;
+import be.btoc.exercises.support.eventhandler.EventCapture;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -9,20 +10,26 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.annotations.AfterMethod;
+
+import java.io.File;
+import java.io.IOException;
 
 public class WebshopSteps {
 
     private Scenario scenario;
+
     @Before
     public void beforeTest( Scenario scenario) {
         System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\Java\\Webdrivers\\chromedriver.exe");
         DriverProvider.createWebdriver();
         this.scenario = scenario;
-
+        DriverProvider.setScenario(scenario);
     }
 
     @Given("I go to {string}")
