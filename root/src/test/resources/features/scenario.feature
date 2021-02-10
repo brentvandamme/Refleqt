@@ -2,7 +2,7 @@ Feature: Webshop tests
 
   Scenario: Go to website
     Given I go to "http://automationpractice.com/index.php"
-    When I search for "dress"
+    When I search for dress
     And I click on the product card picture
     Then "Printed Dress" is shown
 
@@ -14,7 +14,7 @@ Feature: Webshop tests
 
     Scenario: Add something to cart from ResultPage
       Given I go to "http://automationpractice.com/index.php"
-      When I search for "dress"
+      When I search for dress
       And I hover over product card 6
       And I add product to cart
       Then I check if "Blouse" is added at cart

@@ -7,6 +7,7 @@ import be.btoc.exercises.support.World;
 import be.btoc.exercises.support.eventhandler.EventCapture;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.ParameterType;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -31,9 +32,14 @@ public class WebshopSteps {
         this.world = world;
     }
 
+    @ParameterType("shirt|dress|pants")
+    public String kledij(String kledij){
+        return kledij;
+    }
+
     @Before
     public void beforeTest( Scenario scenario) {
-        DriverProvider.createWebdriver(BROWSERTYPES.CLOUD);
+        DriverProvider.createWebdriver(BROWSERTYPES.CHROME);
         this.scenario = scenario;
         DriverProvider.setScenario(scenario);
     }
@@ -43,7 +49,7 @@ public class WebshopSteps {
         DriverProvider.getDriver().get(url);
     }
 
-    @When("I search for {string}")
+    @When("I search for {kledij}")
     public void iSearchFor(String kledij) {
         world.kledij = kledij;
         new FrontPage().searchDress(kledij);
