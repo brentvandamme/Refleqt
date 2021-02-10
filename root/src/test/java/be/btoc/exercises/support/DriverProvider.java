@@ -19,16 +19,15 @@ public abstract class DriverProvider {
         return waiter;
     }
 
-    private static EventFiringWebDriver driver;
+    private static EventFiringWebDriver driver;//driver that fires events
     private static WebDriverWait waiter;
-
     private static Scenario scenario;
 
     public static void createWebdriver() {
         WebDriver webDriver = new ChromeDriver();
-        driver = new EventFiringWebDriver(webDriver);
+        driver = new EventFiringWebDriver(webDriver); //eventfiringdriver needs a webdriver which is a chromdriver
         waiter = new WebDriverWait(driver, 5);
-        DriverProvider.register();
+        DriverProvider.register();//captures event
     }
 
     public static void register() {
@@ -36,7 +35,7 @@ public abstract class DriverProvider {
         driver.register(eCapture);
     }
 
-    public static void takeScreenshot() {
+    public static void takeScreenshot() { //takes screenshot
         scenario.attach(((TakesScreenshot)DriverProvider.getDriver()).getScreenshotAs(OutputType.BYTES),"image/png","screenshot");
     }
 
