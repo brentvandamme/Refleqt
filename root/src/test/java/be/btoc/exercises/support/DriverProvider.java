@@ -1,5 +1,6 @@
 package be.btoc.exercises.support;
 
+import be.btoc.exercises.enums.BROWSERTYPES;
 import be.btoc.exercises.support.eventhandler.EventCapture;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
@@ -23,9 +24,9 @@ public abstract class DriverProvider {
     private static WebDriverWait waiter;
     private static Scenario scenario;
 
-    public static void createWebdriver() {
-        WebDriver webDriver = new ChromeDriver();
-        driver = new EventFiringWebDriver(webDriver); //eventfiringdriver needs a webdriver which is a chromdriver
+    public static void createWebdriver(BROWSERTYPES browsertypes) {
+        WebDriver webDriver = DriverManagerFactory.returnWebdriver(browsertypes);
+        driver = new EventFiringWebDriver(webDriver); //eventfiringdriver needs a webdriver which is a chromedriver
         waiter = new WebDriverWait(driver, 5);
         DriverProvider.register();//captures event
     }

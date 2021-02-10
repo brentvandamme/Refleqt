@@ -1,5 +1,6 @@
 package be.btoc.exercises.steps;
 
+import be.btoc.exercises.enums.BROWSERTYPES;
 import be.btoc.exercises.pages.*;
 import be.btoc.exercises.support.DriverProvider;
 import be.btoc.exercises.support.eventhandler.EventCapture;
@@ -23,11 +24,25 @@ import java.io.IOException;
 public class WebshopSteps {
 
     private Scenario scenario;
+    private FrontPage frontPage;
+    private CheckoutPage checkoutPage;
+    private DetailPage detailPage;
+    private PopupPage popupPage;
+    private ProductPage productPage;
+    private ResultPage resultPage;
+
+    public WebshopSteps(FrontPage frontPage, CheckoutPage checkoutPage, DetailPage detailPage, PopupPage popupPage, ProductPage productPage, ResultPage resultPage){
+        this.frontPage = frontPage;
+        this.checkoutPage = checkoutPage;
+        this.detailPage = detailPage;
+        this.popupPage = popupPage;
+        this.productPage = productPage;
+        this.resultPage = resultPage;
+    }
 
     @Before
     public void beforeTest( Scenario scenario) {
-        System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\Java\\Webdrivers\\chromedriver.exe");
-        DriverProvider.createWebdriver();
+        DriverProvider.createWebdriver(BROWSERTYPES.CHROME);
         this.scenario = scenario;
         DriverProvider.setScenario(scenario);
     }
@@ -39,32 +54,32 @@ public class WebshopSteps {
 
     @When("I search for {string}")
     public void iSearchFor(String kledij) {
-        new FrontPage().searchDress(kledij);
+        frontPage.searchDress(kledij);
     }
 
     @When("I hover over product card {int}")
     public void iHoverOverProductCard(int index) {
-        new ProductPage().hoverOverProductItem(index);
+        productPage.hoverOverProductItem(index);
     }
 
     @And("I click on the product card picture")
     public void iClickOnTheProductCardPicture() {
-        new ResultPage().clickOnProductFoto();
+        resultPage.clickOnProductFoto();
     }
 
     @And("I add product to cart")
     public void iAddProductToCart() {
-        new PopupPage().proceedToCheckoutPage();
+        popupPage.proceedToCheckoutPage();
     }
 
     @Then("{string} is shown")
     public void isShown(String productText) {
-        new DetailPage().checkIfDressIsShown(productText);
+        detailPage.checkIfDressIsShown(productText);
     }
 
     @Then("I check if {string} is added at cart")
     public void iCheckIfProductIsAddedAtCart(String productText) {
-        new CheckoutPage().productIsAddedToCart(productText);
+        checkoutPage.productIsAddedToCart(productText);
     }
 
     @After
