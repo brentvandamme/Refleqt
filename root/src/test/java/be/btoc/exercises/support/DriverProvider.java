@@ -12,10 +12,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class DriverProvider {
 
-    public static WebDriver getDriver() {
-        return driver;
-    }
-
     public static WebDriverWait getWaiter() {
         return waiter;
     }
@@ -29,6 +25,10 @@ public abstract class DriverProvider {
         driver = new EventFiringWebDriver(webDriver); //eventfiringdriver needs a webdriver which is a chromedriver
         waiter = new WebDriverWait(driver, 5);
         DriverProvider.register();//captures event
+    }
+
+    public static WebDriver getDriver() {
+        return driver;
     }
 
     public static void register() {

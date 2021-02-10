@@ -7,11 +7,8 @@ public enum BROWSERTYPES {
     OPERA,
     SAFARI,
     INTERNETEXPLORERE,
+    CLOUD,
     EDGE;
-
-    private BROWSERTYPES(){
-
-    }
 
 }
 

@@ -1,6 +1,11 @@
 package be.btoc.exercises.support;
 
 import be.btoc.exercises.enums.BROWSERTYPES;
+import be.btoc.exercises.enums.executionMode;
+import be.btoc.exercises.support.managers.ChromeManager;
+import be.btoc.exercises.support.managers.DriverManager;
+import be.btoc.exercises.support.managers.FirefoxManager;
+import be.btoc.exercises.support.managers.RemoteManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -15,26 +20,19 @@ public class DriverManagerFactory{
     }
 
     public static WebDriver returnWebdriver(BROWSERTYPES browser) {
-        WebDriver driver = null;
+        DriverManager driver;
         switch (browser){
-            case CHROME:
-                System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\Java\\Webdrivers\\chromedriver.exe");
-                driver = new ChromeDriver();
-                return driver;
             case FIREFOX:
-                System.setProperty("webdriver.gecko.driver", "C:\\Program Files\\Java\\Webdrivers\\geckodriver.exe");
-                return new FirefoxDriver();
-            case EDGE:
-                return new EdgeDriver();
-            case OPERA:
-                return new OperaDriver();
-            case SAFARI:
-                return new SafariDriver();
-            case INTERNETEXPLORERE:
-                return new InternetExplorerDriver();
+                driver = new FirefoxManager();
+                break;
+            case CLOUD:
+                driver = new RemoteManager();
+                break;
+            case CHROME:
             default:
-                return new ChromeDriver();
+                driver = new ChromeManager();
         }
+        return driver.getDriver();
     }
 
 }
